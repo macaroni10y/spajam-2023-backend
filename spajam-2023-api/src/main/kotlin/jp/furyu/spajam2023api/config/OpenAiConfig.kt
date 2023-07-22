@@ -9,7 +9,7 @@ import java.lang.Exception
 import kotlin.time.Duration.Companion.seconds
 
 @Configuration
-class OpenAInAiConfig {
+class OpenAIConfig {
     @Bean
     fun openAi(@Value("\${openai.token}") token: String): OpenAI {
         try {

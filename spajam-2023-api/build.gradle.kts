@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.2"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
+    kotlin("plugin.serialization") version "1.9.0"
     id("com.bmuschko.docker-spring-boot-application") version "9.0.1"
 }
 
@@ -22,11 +23,14 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("software.amazon.awssdk:dynamodb:2.20.65")
     implementation("software.amazon.awssdk:auth:2.20.65")
     implementation("com.aallam.openai:openai-client:3.3.0")
+    implementation("io.ktor:ktor-client-apache5:2.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.7.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     implementation("com.aallam.ulid:ulid-kotlin:1.2.1")
     implementation ("org.slf4j:slf4j-api:2.0.5")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
