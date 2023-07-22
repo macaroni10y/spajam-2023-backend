@@ -46,13 +46,12 @@ tasks.withType<Test> {
 docker {
     // @see https://bmuschko.github.io/gradle-docker-plugin/current/user-guide/#spring-boot-plugin-extension
 
-    val imageName = "ai-illustration-api"
+    val imageName = "spajam-2023-api"
 
     springBootApplication {
         baseImage.set("openjdk:17-jdk-slim-buster")
         ports.set(listOf(8080))
-        images.set(listOf("pictlink/${imageName}:${version}", "pictlink/${imageName}:latest"))
-        mainClassName.set("jp.furyu.aiillustrationapi.AiIllustrationApiApplication")
-        maintainer.set("FURYU Corporation <sn-dev@furyu.jp>")
+        images.set(listOf("${imageName}:${version}", "${imageName}:latest"))
+        mainClassName.set("jp.furyu.spajam2023api.Spajam2023ApiApplication")
     }
 }
