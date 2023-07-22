@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  app:
+    image: 'furyu/spajam-2023-api:latest'
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./volume/resources/logback.xml:/app/resources/logback.xml
+    environment:
+      DYNAMODB_ENDPOINT: "http://dynamodb-local:8000/"
+      SPRING_PROFILES_ACTIVE: "local"
+  dynamodb-local:
+    image: 'amazon/dynamodb-local:1.21.0'
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /data"
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./dynamodb:/data"
+  dynamodb-admin:
+    image: "aaronshaf/dynamodb-admin:latest"
+    environment:
+      DYNAMO_ENDPOINT: "dynamodb-local:8000"
+    ports:
+      - "8001:8001"
+    depends_on:
+      - dynamodb-local

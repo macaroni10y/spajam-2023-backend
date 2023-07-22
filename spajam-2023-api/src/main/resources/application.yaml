@@ -1,0 +1,5 @@
+openai:
+  token: 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
+aws:
+  dynamodb:
+    endpoint: ${DYNAMODB_ENDPOINT}
