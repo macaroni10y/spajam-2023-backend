@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class ConversationUsecase(private val openAiService: OpenAiService, private val conversationRepository: ConversationRepository) {
-    suspend fun execute(prompt: String, conversationId: String): ConversationDto {
-        val conversation = conversationRepository.findByConversationId(conversationId)
+    suspend fun execute(prompt: String, conversationId: String?): ConversationDto {
+        val conversation = conversationId?.let { conversationRepository.findByConversationId(it) } ?: Conversation.create()
         val responseFromAi = openAiService.call(prompt, conversation)
 
         conversationRepository.save(
