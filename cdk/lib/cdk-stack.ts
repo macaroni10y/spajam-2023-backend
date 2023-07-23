@@ -22,7 +22,6 @@ export class CdkStack extends cdk.Stack {
             instanceRole: appRunnerInstanceRole,
             source: Source.fromEcr({
                 repository: repository,
-                tagOrDigest: 'latest',
             }),
         });
 
