@@ -1,5 +1,5 @@
 openai:
-  token: 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
+  token: dummy
 aws:
   dynamodb:
     endpoint: ${DYNAMODB_ENDPOINT:dummy}
