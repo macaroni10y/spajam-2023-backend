@@ -6,18 +6,21 @@ import {AttributeType, Table} from "aws-cdk-lib/aws-dynamodb";
 import {Service, Source} from '@aws-cdk/aws-apprunner-alpha';
 import {Role, ServicePrincipal} from "aws-cdk-lib/aws-iam";
 
-export class CdkStack extends cdk.Stack {
+export class Spajam2023Stack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
         const repository = new Repository(this, 'Repository', {
             repositoryName: 'spajam-2023-api',
+            removalPolicy: RemovalPolicy.DESTROY,
         });
 
         const appRunnerInstanceRole = new Role(this, 'InstanceRole', {
-            assumedBy: new ServicePrincipal('tasks.apprunner.amazonaws.com')
+            assumedBy: new ServicePrincipal('tasks.apprunner.amazonaws.com'),
         });
-        const appRunnerService = new Service(this, 'Service', {
+        repository.grantPull(appRunnerInstanceRole)
+
+        new Service(this, 'Service', {
             autoDeploymentsEnabled: true,
             instanceRole: appRunnerInstanceRole,
             source: Source.fromEcr({
@@ -25,15 +28,13 @@ export class CdkStack extends cdk.Stack {
             }),
         });
 
-        const dynamoDbTable = new Table(this, 'DynamoDb', {
+        new Table(this, 'DynamoDb', {
             tableName: 'Conversation',
             partitionKey: {
                 name: 'conversationId',
                 type: AttributeType.STRING,
             },
             removalPolicy: RemovalPolicy.DESTROY,
-        });
-
-        dynamoDbTable.grantFullAccess(appRunnerInstanceRole);
+        }).grantFullAccess(appRunnerInstanceRole);
     }
 }
