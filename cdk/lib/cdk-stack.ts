@@ -26,23 +26,6 @@ export class CdkStack extends cdk.Stack {
             }),
         });
 
-        // const fargateService = new ApplicationLoadBalancedFargateService(this, 'FargateService', {
-        //     taskImageOptions: {
-        //         image: ContainerImage.fromEcrRepository(repository),
-        //         logDriver: LogDriver.awsLogs({
-        //             logGroup: new LogGroup(this, 'EcsLogGroup', {
-        //                 logGroupName: `/aws/ecs/logs/spajam-2023-api`,
-        //             }),
-        //             streamPrefix: `ecs`,
-        //         }),
-        //         containerPort: 8080,
-        //     },
-        // });
-        // fargateService.targetGroup.configureHealthCheck({
-        //     path: '/health',
-        //     port: '8080',
-        // });
-
         const dynamoDbTable = new Table(this, 'DynamoDb', {
             tableName: 'Conversation',
             partitionKey: {
@@ -52,7 +35,6 @@ export class CdkStack extends cdk.Stack {
             removalPolicy: RemovalPolicy.DESTROY,
         });
 
-        // dynamoDbTable.grantFullAccess(fargateService.taskDefinition.taskRole);
         dynamoDbTable.grantFullAccess(appRunnerInstanceRole);
     }
 }
