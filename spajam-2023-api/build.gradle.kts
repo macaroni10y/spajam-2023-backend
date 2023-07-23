@@ -7,6 +7,7 @@ plugins {
     kotlin("plugin.spring") version "1.8.22"
     kotlin("plugin.serialization") version "1.9.0"
     id("com.bmuschko.docker-spring-boot-application") version "9.0.1"
+    id("com.palantir.git-version") version "3.0.0"
 }
 
 group = "jp.furyu"
@@ -55,6 +56,9 @@ docker {
     springBootApplication {
         baseImage.set("openjdk:17-jdk-slim-buster")
         ports.set(listOf(8080))
+        val versionDetails: groovy.lang.Closure<com.palantir.gradle.gitversion.VersionDetails> by extra
+        val details = versionDetails()
+        val version = details.gitHashFull
         images.set(listOf("${imageName}:${version}", "${imageName}:latest"))
         mainClassName.set("jp.furyu.spajam2023api.Spajam2023ApiApplication")
     }
