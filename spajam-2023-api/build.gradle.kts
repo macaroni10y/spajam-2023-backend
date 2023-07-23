@@ -33,7 +33,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.7.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     implementation("com.aallam.ulid:ulid-kotlin:1.2.1")
-    implementation ("org.slf4j:slf4j-api:2.0.5")
+    implementation("org.slf4j:slf4j-api:2.0.5")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
@@ -54,11 +54,12 @@ docker {
     val imageName = "spajam-2023-api"
 
     springBootApplication {
-        baseImage.set("openjdk:17-jdk-slim-buster")
+        baseImage.set("--platform=linux/amd64 openjdk:17-jdk-slim-buster")
         ports.set(listOf(8080))
         val versionDetails: groovy.lang.Closure<com.palantir.gradle.gitversion.VersionDetails> by extra
         val details = versionDetails()
         val version = details.gitHashFull
+
         images.set(listOf("${imageName}:${version}", "${imageName}:latest"))
         mainClassName.set("jp.furyu.spajam2023api.Spajam2023ApiApplication")
     }
