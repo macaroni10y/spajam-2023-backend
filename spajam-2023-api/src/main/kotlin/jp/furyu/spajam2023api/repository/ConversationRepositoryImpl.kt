@@ -28,7 +28,7 @@ class ConversationRepositoryImpl(private val client: DynamoDbClient) : Conversat
 
             return Conversation.fromJson(json)
         } catch (e: DynamoDbException) {
-            logger.info("Failed to get conversation:  $conversationId. create new conversation.")
+            logger.info("Failed to get conversation: $conversationId. create new conversation.")
             return Conversation.create()
         }
     }
@@ -45,7 +45,7 @@ class ConversationRepositoryImpl(private val client: DynamoDbClient) : Conversat
         try {
             client.putItem(putItemRequest)
         } catch (e: DynamoDbException) {
-            logger.error("Failed to save conversation: $conversation")
+            logger.error("Failed to save conversation: $conversation.")
             throw RuntimeException(e)
         }
     }
