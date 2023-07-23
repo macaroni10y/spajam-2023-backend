@@ -60,7 +60,7 @@ docker {
         val details = versionDetails()
         val version = details.gitHashFull
 
-        images.set(listOf("${imageName}:${version}", "${imageName}:latest"))
+        images.set(listOf("${imageName}:${version}", "${imageName}:latest", "417866577833.dkr.ecr.ap-northeast-1.amazonaws.com/${imageName}:${version}"))
         mainClassName.set("jp.furyu.spajam2023api.Spajam2023ApiApplication")
     }
 }
