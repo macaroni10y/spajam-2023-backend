@@ -24,11 +24,11 @@ class ConversationRepositoryImpl(private val client: DynamoDbClient) : Conversat
             }
             val json = response.item()["value"]!!.s().replace("\n", "")
 
-            logger.info("got conversation items: $json.")
+            logger.info("got conversation item: $json.")
 
             return Conversation.fromJson(json)
         } catch (e: DynamoDbException) {
-            logger.info("Failed to get conversation: $conversationId. create new conversation.")
+            logger.info("failed to get conversation: $conversationId. create new conversation.")
             return Conversation.create()
         }
     }

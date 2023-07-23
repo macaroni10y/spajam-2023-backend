@@ -18,11 +18,17 @@ export class Spajam2023Stack extends cdk.Stack {
         const appRunnerInstanceRole = new Role(this, 'InstanceRole', {
             assumedBy: new ServicePrincipal('tasks.apprunner.amazonaws.com'),
         });
-        repository.grantPull(appRunnerInstanceRole)
+
+        const accessRole = new Role(this, 'AccessRole', {
+            assumedBy: new ServicePrincipal('build.apprunner.amazonaws.com'),
+        });
+
+        repository.grantRead(accessRole);
 
         new Service(this, 'Service', {
             autoDeploymentsEnabled: true,
             instanceRole: appRunnerInstanceRole,
+            accessRole: accessRole,
             source: Source.fromEcr({
                 repository: repository,
             }),

@@ -24,7 +24,7 @@ class OpenAiServiceImpl(private val openAI: OpenAI) : OpenAiService {
                         + ChatMessage(role = ChatRole("user"), content = prompt),
         )
         val completion = openAI.chatCompletion(completionRequest)
-        logger.info("completion: {$completion}")
+        logger.info("completion  : {$completion}")
         return completion.choices.map { it.message }.map { it?.content }.joinToString(separator = "\n")
     }
 }
