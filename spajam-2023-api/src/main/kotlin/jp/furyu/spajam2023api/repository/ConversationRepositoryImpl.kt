@@ -28,7 +28,7 @@ class ConversationRepositoryImpl(private val client: DynamoDbClient) : Conversat
 
             return Conversation.fromJson(json)
         } catch (e: DynamoDbException) {
-            logger.info("Failed to get conversation: $conversationId. create new conversation.")
+            logger.info("Failed to get conversation:  $conversationId. create new conversation.")
             return Conversation.create()
         }
     }
