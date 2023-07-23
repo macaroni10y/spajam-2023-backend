@@ -12,7 +12,7 @@ import java.net.URI
 
 
 @Configuration
-class DynamoDbConfig(@param:Value("\${aws.dynamodb.endpoint}") private val dynamoDbEndPointUrl: String) {
+class DynamoDbConfig(@param:Value("\${aws.dynamodb.endpoint:dummy}") private val dynamoDbEndPointUrl: String) {
 
     @get:Bean
     @get:Profile("local")
