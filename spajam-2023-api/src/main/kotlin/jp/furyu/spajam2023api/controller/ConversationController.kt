@@ -26,6 +26,8 @@ class ConversationController(private val conversationUsecase: ConversationUsecas
             )
 
     @PostMapping("/conversation")
-    suspend fun conversation(@RequestBody textCompletionRequest: TextCompletionRequest): ResponseEntity<ConversationResponse> =
-            ResponseEntity.ok(conversationUsecase.execute(textCompletionRequest.prompt, textCompletionRequest.conversationId).toResponse())
+    suspend fun conversation(@RequestBody request: TextCompletionRequest): ResponseEntity<Any> {
+        request.needAllHistory?.let { if (it) return ResponseEntity.ok(conversationUsecase.executeWithAllHistories(request.prompt, request.conversationId).toResponse()) }
+        return ResponseEntity.ok(conversationUsecase.execute(request.prompt, request.conversationId).toResponse())
+    }
 }

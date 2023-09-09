@@ -11,5 +11,11 @@ data class TextCompletionRequest(
          * 会話を特定するID 指定しない場合は新しい会話として扱う
          */
         @JsonProperty(required = false)
-        val conversationId: String?
+        val conversationId: String?,
+
+        /**
+         * 過去の会話全てを返すかどうか
+         */
+        @JsonProperty(required = false)
+        val needAllHistory: Boolean?
 )
