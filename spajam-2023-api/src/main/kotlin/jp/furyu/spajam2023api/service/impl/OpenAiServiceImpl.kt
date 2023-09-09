@@ -21,7 +21,7 @@ class OpenAiServiceImpl(private val openAI: OpenAI) : OpenAiService {
         val completionRequest = ChatCompletionRequest(
                 model = ModelId("gpt-3.5-turbo"),
                 messages = context.chats.map { ChatMessage(role = ChatRole(it.speaker.asSystemName()), content = it.text) }
-                        + ChatMessage(role = ChatRole("user"), content = prompt),
+                        + ChatMessage(role = ChatRole("user"), content = "$prompt please reply about 30 words"),
         )
         val completion = openAI.chatCompletion(completionRequest)
         logger.info("completion  : {$completion}")
