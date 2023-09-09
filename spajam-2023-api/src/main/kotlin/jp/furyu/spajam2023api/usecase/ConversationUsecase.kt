@@ -29,6 +29,6 @@ class ConversationUsecase(private val openAiService: OpenAiService, private val 
                 .addChat(OneChat(Speaker.USER, prompt))
                 .addChat(OneChat(Speaker.AI, responseFromAi))
         conversationRepository.save(added)
-        return ConversationsDto(added.chats.map { OneChatDto(it.speaker.asSystemName(), it.text) })
+        return ConversationsDto(conversation.id, added.chats.map { OneChatDto(it.speaker.asSystemName(), it.text) })
     }
 }
